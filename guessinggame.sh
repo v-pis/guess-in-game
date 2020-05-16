@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # File: guessingame.sh
 
-function guessingame {
+function guessinggame {
 
 	#Get the number of files in the directory
 	nfd=$(ls -la | egrep "^-" | wc -l)
@@ -35,4 +35,4 @@ function guessingame {
 
 }
 
-guessingame
+guessinggame
