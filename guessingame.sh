@@ -1,33 +1,38 @@
 #!/usr/bin/env bash
 # File: guessingame.sh
 
-#Get the number of files in the directory
-nfd=$(ls -la | egrep "^-" | wc -l)
+function guessingame {
 
-#Make a request to the user
-echo "Try to guess how many files are in the current directory ?"
-read nof
-echo ""
+	#Get the number of files in the directory
+	nfd=$(ls -la | egrep "^-" | wc -l)
 
-#Testing for equality
-while [[ ! $nof -eq $nfd ]]
-do
+	#Make a request to the user
+	echo "Try to guess how many files are in the current directory ?"
+	read nof
+	echo ""
 
-	if [[ $nof -gt $nfd ]]
-	then
-		echo "Your guess is too high"
-		echo "Try to guess more:"
-        	read nof
-        	echo ""
-	elif [[ $nof -lt $nfd ]]
-	then
-		echo "Your guess is too less"
-		echo "Try to guess more:"
-        	read nof
-        	echo ""
-	fi
-done
+	#Testing for equality
+	while [[ ! $nof -eq $nfd ]]
+	do
 
-#Win
-echo "Congratulations! You guessed it."
+		if [[ $nof -gt $nfd ]]
+		then
+			echo "Your guess is too high"
+			echo "Try to guess more:"
+        		read nof
+        		echo ""
+		elif [[ $nof -lt $nfd ]]
+		then
+			echo "Your guess is too less"
+			echo "Try to guess more:"
+        		read nof
+        		echo ""
+		fi
+	done
 
+	#Win
+	echo "Congratulations! You guessed it."
+
+}
+
+guessingame
