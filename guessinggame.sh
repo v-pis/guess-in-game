@@ -1,38 +1,46 @@
 #!/usr/bin/env bash
-# File: guessingame.sh
 
-function guessinggame {
+function main {
 
-	#Get the number of files in the directory
-	nfd=$(ls -la | egrep "^-" | wc -l)
-
-	#Make a request to the user
 	echo "Try to guess how many files are in the current directory ?"
 	read nof
 	echo ""
+	testmistakes
+	equality
+	echo "Congratulations! You guessed it."
+}
 
-	#Testing for equality
+function testmistakes {
+
+        test=$(echo $nof | egrep -o "[0-9]+")
+        while [[ ! $test =~ $nof ]]
+        do
+                echo "You must enter an integer without letters, symbols, spaces, dots and commas."
+                read nof
+                test=$(echo $nof | egrep -o "[0-9]+")
+                echo ""
+        done
+}
+
+function equality {
+
+	nfd=$(ls -la | egrep "^-" | wc -l)
+
 	while [[ ! $nof -eq $nfd ]]
 	do
-
 		if [[ $nof -gt $nfd ]]
 		then
 			echo "Your guess is too high"
-			echo "Try to guess more:"
-        		read nof
-        		echo ""
+
 		elif [[ $nof -lt $nfd ]]
 		then
 			echo "Your guess is too less"
-			echo "Try to guess more:"
-        		read nof
-        		echo ""
 		fi
+	echo "Try to guess more:"
+	read nof
+	echo ""
+	testmistakes
 	done
-
-	#Win
-	echo "Congratulations! You guessed it."
-
 }
 
-guessinggame
+main
